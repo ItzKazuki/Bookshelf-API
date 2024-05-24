@@ -40,8 +40,9 @@ const createBook = (req, h) => {
   if (!success) return response(h, {
     status: 'fail',
     message: error
-  }, 400)
+  }, 400);
 
+  // asumsi di sini store ke database Awoakowkaowk
   books.push(newBook);
 
   if (books.filter(book => book.id === id).length > 0) {
@@ -52,8 +53,8 @@ const createBook = (req, h) => {
       data: {
         bookId: id
       }
-    }, 201)
-  }
+    }, 201);
+  };
 
   // send error message
   return response(h, {
@@ -75,21 +76,16 @@ const getBooks = (req, h) => {
     });
 
     // cek dulu reading nya true or false
-    if (reading !== undefined) {
-      filterBooks = books.filter(book => book.reading == reading);
-      // if(reading != true || reading != false) filterBooks = books;
-    }
+    if (reading !== undefined) filterBooks = books.filter(book => book.reading == reading);
 
-    if (finished !== undefined) {
-      filterBooks = books.filter(book => book.finished == finished);
-      // if(finished != true || finished != false) filterBooks = books;
-    }
+    if (finished !== undefined) filterBooks = books.filter(book => book.finished == finished);
 
+    // kembalikan hanya id, name, dan publisher
     filterBooks = filterBooks.map(({ id, name, publisher }) => {
       return {
         id, name, publisher
-      }
-    })
+      };
+    });
 
     return response(h, {
       status: 'success',
@@ -97,13 +93,14 @@ const getBooks = (req, h) => {
         books: filterBooks
       }
     }, 200);
-  }
+  };
 
   const res = books.map(({ id, name, publisher }) => {
     return {
       id, name, publisher
-    }
-  })
+    };
+  });
+
   return response(h, {
     status: 'success',
     data: {
@@ -123,12 +120,12 @@ const getBookById = (req, h) => {
     data: {
       book
     }
-  }
+  };
 
   return response(h, {
     status: 'fail',
     message: 'Buku tidak ditemukan'
-  }, 404)
+  }, 404);
 };
 
 const editBookById = (req, h) => {
@@ -164,7 +161,7 @@ const editBookById = (req, h) => {
   if (!success) return response(h, {
     status: 'fail',
     message: error
-  }, 400)
+  }, 400);
 
   const index = books.findIndex(book => book.id === id);
 
@@ -188,7 +185,7 @@ const editBookById = (req, h) => {
       status: 'success',
       message: 'Buku berhasil diperbarui'
     }, 200);
-  }
+  };
 
   return response(h, {
     status: 'fail',
@@ -214,7 +211,7 @@ const deleteBookById = (req, h) => {
   return response(h, {
     status: 'fail',
     message: 'Buku gagal dihapus. Id tidak ditemukan'
-  }, 404)
+  }, 404);
 };
 
 export {

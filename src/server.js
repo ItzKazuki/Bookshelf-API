@@ -25,7 +25,7 @@ const init = async () => {
   if (config.APP_ENV == 'devlopment') {
     server.ext('onPreResponse', (req, h) => {
 
-      console.log('\n')
+      console.log('\n');
       success(`--- Response to ${req.path} success ---`);
 
       return h.continue;
@@ -33,7 +33,7 @@ const init = async () => {
   }
 
   await server.start();
-  success(`server berhasil di jalankan ${server.info.uri}`)
+  success(`server berhasil di jalankan ${server.info.uri}`);
 }
 
 /*global process*/
@@ -43,7 +43,5 @@ process.on('unhandledRejection', (err) => {
 });
 
 danger('Starting server...');
-if (config.APP_ENV == 'devlopment') {
-  danger(`server dalam mode devlopment, ubah APP_ENV ke production di src/config.js jika sudah tidak dalam tahap devlopment`)
-}
+if (config.APP_ENV == 'devlopment') danger(`server dalam mode devlopment, ubah APP_ENV ke production di src/config.js jika sudah tidak dalam tahap devlopment`);
 init();
